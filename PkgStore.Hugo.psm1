@@ -38,19 +38,19 @@ function Install-Hugo() {
   if ( Test-Path -Path "${DIR}" ) { Remove-Item -Path "${DIR}" -Recurse -Force }
 
   # Create app directory.
-  Write-Information -MessageData "Create directory: '${DIR}'..." -InformationAction "Continue"
+  Write-Msg -T 'I' -M "Create directory: '${DIR}'..."
   New-Item -Path "${DIR}" -ItemType "Directory" -Force | Out-Null
 
   # Download Hugo ZIP from GitHub.
-  Write-Information -MessageData "Download Hugo Extended: '${ZIP}'..." -InformationAction "Continue"
+  Write-Msg -T 'I' -M "Download Hugo Extended: '${ZIP}'..."
   Invoke-WebRequest "${URL}" -OutFile "${DIR}\${ZIP}"
 
   # Expanding Hugo ZIP.
-  Write-Information -MessageData "Expand: '${ZIP}'..." -InformationAction "Continue"
+  Write-Msg -T 'I' -M "Expand: '${ZIP}'..."
   Expand-Archive -Path "${DIR}\${ZIP}" -DestinationPath "${DIR}"
 
   # Remove Hugo ZIP.
-  Write-Information -MessageData "Remove: '${ZIP}'..." -InformationAction "Continue"
+  Write-Msg -T 'I' -M "Remove: '${ZIP}'..."
   Remove-Item -Path "${DIR}\${ZIP}";
 }
 
@@ -102,7 +102,7 @@ function Start-HugoServer() {
 
   # Checking if a 'hugo.exe' exist.
   if ( -not ( Test-Path -Path "${APP}" -PathType "Leaf" ) ) {
-    Write-Error -Message "'hugo.exe' not found! Please install Hugo: 'Get-Help Install-Hugo'." -ErrorAction "Stop"
+    Write-Msg -T 'E' -M "'hugo.exe' not found! Please install Hugo: 'Get-Help Install-Hugo'." -A 'Stop'
   }
 
   # Running a app.
