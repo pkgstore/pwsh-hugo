@@ -3,10 +3,14 @@ function Install-Hugo() {
     .SYNOPSIS
 
     .DESCRIPTION
+      Installing Hugo Extended from GitHub.
 
     .PARAMETER Version
+      Hugo version.
+      Alias: '-V'.
 
     .EXAMPLE
+      Install-Hugo -V '0.109.0'
 
     .LINK
       Package Store: https://github.com/pkgstore
@@ -49,10 +53,23 @@ function Start-HugoServer() {
     .SYNOPSIS
 
     .DESCRIPTION
+      Starting Hugo server.
 
-    .PARAMETER Version
+    .PARAMETER Port
+      Hugo server port.
+      Default: '1313'.
+      Alias: '-P'.
+
+    .PARAMETER CacheDir
+      Path to Hugo server cache directory.
+      Default: '$( Get-Location )\cache'.
+      Alias: '-CD'.
 
     .EXAMPLE
+      Start-HugoServer
+
+    .EXAMPLE
+      Start-HugoServer -P 1315 -CD 'D:\Hugo\Cache'
 
     .LINK
       Package Store: https://github.com/pkgstore
@@ -65,7 +82,7 @@ function Start-HugoServer() {
 
   Param(
     [Alias('P')]
-    [string]${Port},
+    [int]${Port} = 1313,
 
     [Alias('CD')]
     [string]${CacheDir} = "$( Get-Location )\cache"
@@ -75,7 +92,7 @@ function Start-HugoServer() {
   ${CMD} = @( "server", "-D", "-p ${Port}", "--printI18nWarnings", "--cacheDir '${CacheDir}'", "--gc" )
 
   if ( -not ( Test-Path -Path "${APP}" -PathType "Leaf" ) ) {
-    Write-Error -Message "'hugo.exe' not found! Please install Hugo: 'Install-Hugo'." -ErrorAction "Stop"
+    Write-Error -Message "'hugo.exe' not found! Please install Hugo: 'Get-Help Install-Hugo'." -ErrorAction "Stop"
   }
 
   & "${APP}" ${CMD}
