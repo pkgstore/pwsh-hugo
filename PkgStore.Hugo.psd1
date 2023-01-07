@@ -7,7 +7,13 @@
   Copyright = '(c) 2023 v77 Development. All rights reserved.'
   Description = 'PowerShell module for Hugo Extended.'
   PowerShellVersion = '7.1'
+  RequiredModules = @('PkgStore.Kernel')
   FunctionsToExport = @('Install-Hugo', 'Start-HugoServer')
-  CmdletsToExport = @()
-  AliasesToExport = @()
+  PrivateData = @{
+    PSData = @{
+      Tags = @('pwsh', 'hugo')
+      LicenseUri = 'https://github.com/pkgstore/pwsh-hugo/blob/main/LICENSE'
+      ProjectUri = 'https://github.com/pkgstore/pwsh-hugo'
+    }
+  }
 }
