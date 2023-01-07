@@ -23,11 +23,13 @@ function Install-Hugo() {
     [string]${Version}
   )
 
-  ${URL} = "https://github.com/gohugoio/hugo/releases/download/v${Version}/hugo_extended_${Version}_windows-amd64.zip"
+  ${ZIP} = "hugo_extended_${Version}_windows-amd64.zip"
+  ${URL} = "https://github.com/gohugoio/hugo/releases/download/v${Version}/${ZIP}"
   ${DIR} = "${PSScriptRoot}\hugo"
   ${HUGO} = "${DIR}\hugo.exe"
 
   if ( -not ( Test-Path -Path "${HUGO}" -PathType "Leaf" ) ) {
-    Invoke-WebRequest "${URL}" -OutFile "${DIR}"
+    Invoke-WebRequest "${URL}" -OutFile "${DIR}\${ZIP}"
+    Expand-Archive -Path "${DIR}\${ZIP}" -DestinationPath "${DIR}"
   }
 }
