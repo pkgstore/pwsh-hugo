@@ -28,9 +28,11 @@ function Install-Hugo() {
     [string]${Version}
   )
 
-  ${VER} = "${Version}"
-  ${DIR} = "${PSScriptRoot}\App"
-  ${ZIP} = "hugo_extended_${VER}_windows-amd64.zip"
+  ${VER} = "${Version}"                             # Hugo version.
+  ${DIR} = "${PSScriptRoot}\App"                    # Local Hugo directory.
+  ${ZIP} = "hugo_extended_${VER}_windows-amd64.zip" # Hugo ZIP file.
+
+  # Hugo download URL.
   ${URL} = "https://github.com/gohugoio/hugo/releases/download/v${VER}/${ZIP}"
 
   if ( Test-Path -Path "${DIR}" ) { Remove-Item -Path "${DIR}" -Recurse -Force }
@@ -43,7 +45,7 @@ function Install-Hugo() {
   Write-Information -MessageData "Download Hugo Extended: '${ZIP}'..." -InformationAction "Continue"
   Invoke-WebRequest "${URL}" -OutFile "${DIR}\${ZIP}"
 
-  # Expand Hugo ZIP.
+  # Expanding Hugo ZIP.
   Write-Information -MessageData "Expand: '${ZIP}'..." -InformationAction "Continue"
   Expand-Archive -Path "${DIR}\${ZIP}" -DestinationPath "${DIR}"
 
@@ -92,12 +94,17 @@ function Start-HugoServer() {
     [string]${CacheDir} = "$( Get-Location )\cache"
   )
 
+  # Hugo executable file.
   ${APP} = "${PSScriptRoot}\App\hugo.exe"
+
+  # Composing a app command.
   ${CMD} = @( "server", "-D", "-p ${Port}", "--printI18nWarnings", "--cacheDir '${CacheDir}'", "--gc" )
 
+  # Checking if a 'hugo.exe' exist.
   if ( -not ( Test-Path -Path "${APP}" -PathType "Leaf" ) ) {
     Write-Error -Message "'hugo.exe' not found! Please install Hugo: 'Get-Help Install-Hugo'." -ErrorAction "Stop"
   }
 
+  # Running a app.
   & "${APP}" ${CMD}
 }
