@@ -19,6 +19,7 @@ function Install-Hugo() {
 
   Param(
     [Parameter(Mandatory)]
+    [ValidatePattern('^((\d+)\.(\d+)\.(\d+))$')]
     [Alias('V')]
     [string]${Version}
   )
@@ -71,7 +72,7 @@ function Start-HugoServer() {
   )
 
   ${APP} = "${PSScriptRoot}\App\hugo.exe"
-  ${CMD} = @( "server", "-D", "-p ${Port}", "--printI18nWarnings", "--cacheDir ${CacheDir}", "--gc" )
+  ${CMD} = @( "server", "-D", "-p ${Port}", "--printI18nWarnings", "--cacheDir '${CacheDir}'", "--gc" )
 
   if ( -not ( Test-Path -Path "${APP}" -PathType "Leaf" ) ) {
     Write-Error -Message "'hugo.exe' not found! Please install Hugo: 'Install-Hugo'." -ErrorAction "Stop"
