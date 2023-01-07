@@ -1,10 +1,9 @@
 function Install-Hugo() {
   <#
     .SYNOPSIS
-      Install Hugo.
+      Installing Hugo Extended from GitHub.
 
     .DESCRIPTION
-      Installing Hugo Extended from GitHub.
 
     .PARAMETER Version
       Hugo version.
@@ -56,10 +55,9 @@ function Install-Hugo() {
 function Start-HugoServer() {
   <#
     .SYNOPSIS
-      Run Hugo server.
+      Starting Hugo server.
 
     .DESCRIPTION
-      Starting Hugo server.
 
     .PARAMETER Port
       Hugo server port.
