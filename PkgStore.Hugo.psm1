@@ -1,6 +1,7 @@
 function Install-Hugo() {
   <#
     .SYNOPSIS
+      Install Hugo.
 
     .DESCRIPTION
       Installing Hugo Extended from GitHub.
@@ -35,15 +36,19 @@ function Install-Hugo() {
 
   if ( Test-Path -Path "${DIR}" ) { Remove-Item -Path "${DIR}" -Recurse -Force }
 
+  # Create app directory.
   Write-Information -MessageData "Create directory: '${DIR}'..." -InformationAction "Continue"
   New-Item -Path "${DIR}" -ItemType "Directory" -Force | Out-Null
 
+  # Download Hugo ZIP from GitHub.
   Write-Information -MessageData "Download Hugo Extended: '${ZIP}'..." -InformationAction "Continue"
   Invoke-WebRequest "${URL}" -OutFile "${DIR}\${ZIP}"
 
+  # Expand Hugo ZIP.
   Write-Information -MessageData "Expand: '${ZIP}'..." -InformationAction "Continue"
   Expand-Archive -Path "${DIR}\${ZIP}" -DestinationPath "${DIR}"
 
+  # Remove Hugo ZIP.
   Write-Information -MessageData "Remove: '${ZIP}'..." -InformationAction "Continue"
   Remove-Item -Path "${DIR}\${ZIP}";
 }
@@ -51,6 +56,7 @@ function Install-Hugo() {
 function Start-HugoServer() {
   <#
     .SYNOPSIS
+      Run Hugo server.
 
     .DESCRIPTION
       Starting Hugo server.
