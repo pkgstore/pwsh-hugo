@@ -7,7 +7,7 @@
   Copyright = '(c) 2023 v77 Development. All rights reserved.'
   Description = 'PowerShell module for Hugo Extended.'
   PowerShellVersion = '7.1'
-  FunctionsToExport = @('Install-Hugo')
+  FunctionsToExport = @('Install-Hugo', 'Start-HugoServer')
   CmdletsToExport = @()
   AliasesToExport = @()
 }
